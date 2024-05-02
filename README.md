@@ -1,3 +1,8 @@
 # mMetrics
+Metrics service for collect statistics from your applications.
 
-Metrics analysis for Minecraft plugins.
+## Technologies
+* SpringBoot 
+* Vue.js
+* MySQL
+* Docker
