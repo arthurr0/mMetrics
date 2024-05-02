@@ -37,6 +37,9 @@ public class Product {
   @Column(nullable = false, length = 256)
   private String description;
 
+  @Column(nullable = false)
+  private ProductType type;
+
   @Column(nullable = false, updatable = false)
   private Instant createdAt;
 
