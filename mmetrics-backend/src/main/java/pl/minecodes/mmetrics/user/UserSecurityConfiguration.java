@@ -38,7 +38,7 @@ class UserSecurityConfiguration {
     http
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/api/v1/user/register", "/api/v1/user/login").permitAll()
+            .requestMatchers("/api/v1/user/register", "/api/v1/user/login", "/api/v1/metrics/**").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(this.userSecurityJwtFilter, UsernamePasswordAuthenticationFilter.class);
