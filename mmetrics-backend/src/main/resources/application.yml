@@ -9,3 +9,7 @@ spring:
     show-sql: ${HIBERNATE_SHOW_SQL}
     hibernate:
       ddl-auto: ${HIBERNATE_HBM2DDL_AUTO}
+
+security:
+  bcrypt:
+    secret: ${BCRYPT_PASSWORD_SECRET}

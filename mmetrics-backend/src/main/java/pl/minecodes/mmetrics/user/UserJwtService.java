@@ -9,13 +9,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserJwtService {
 
-  private final String secret_key = "asdasdasd";
+  private final String secret_key;
   private final JwtParser jwtParser;
 
   private String TOKEN_HEADER = "Authorization";
@@ -23,7 +24,9 @@ public class UserJwtService {
 
   private long accessTokenValidity = 60 * 60 * 1000;
 
-  public UserJwtService() {
+  public UserJwtService(@Value("${security.bcrypt.secret}") String secretKey) {
+    this.secret_key = secretKey;
+    System.out.println("Secret key: " + secret_key);
     this.jwtParser = Jwts.parser().setSigningKey(secret_key);
   }
 
