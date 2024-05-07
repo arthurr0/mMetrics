@@ -16,6 +16,10 @@ public class ProductService {
     return this.productRepository.findById(id);
   }
 
+  public Optional<Product> findByApiCode(int apiCode) {
+    return this.productRepository.findByApiCode(apiCode);
+  }
+
   public Product save(Product metric) {
     return this.productRepository.save(metric);
   }

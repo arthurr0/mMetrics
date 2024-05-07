@@ -8,7 +8,7 @@ import pl.minecodes.mmetrics.user.User;
 class ProductFactory {
 
   public Product createMetric(ProductCreateRequest request, User user) {
-    return new Product(request.getName(), request.getDescription(), user);
+    return new Product(request.getName(), request.getDescription(), request.getType(), user);
   }
 
 }

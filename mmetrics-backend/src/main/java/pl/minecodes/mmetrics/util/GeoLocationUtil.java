@@ -13,15 +13,17 @@ public class GeoLocationUtil {
 
   private final static HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
-  public static String getCountry(String address) throws IOException, InterruptedException {
+  public static String getCountry(String address) {
     HttpRequest request = HttpRequest.newBuilder(URI.create("https://mgeo.minecodes.pl/api/v1/geo/country?address=" + address))
         .GET()
-        .header("apiKey", "very_secret_api_key")
-        .build();
+        .header("apiKey", "very_secret_api_key").build();
 
-    HttpResponse<String> response = HTTP_CLIENT.send(request, BodyHandlers.ofString());
-    JsonObject country = JsonParser.parseString(response.body()).getAsJsonObject();
-
-    return country.get("names").getAsJsonObject().get("en").getAsString();
+    try {
+      HttpResponse<String> response = HTTP_CLIENT.send(request, BodyHandlers.ofString());
+      JsonObject country = JsonParser.parseString(response.body()).getAsJsonObject();
+      return country.get("names").getAsJsonObject().get("en").getAsString();
+    } catch (Exception e) {
+      return "Unknown";
+    }
   }
 }

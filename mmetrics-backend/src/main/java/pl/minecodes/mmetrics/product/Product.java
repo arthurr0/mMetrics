@@ -45,11 +45,12 @@ public class Product {
 
   private Instant updatedAt;
 
-  public Product(String name, String description, User user) {
+  public Product(String name, String description, ProductType type, User user) {
     this.apiCode = RandomNumberUtil.generateRandomNumber(10000000, 99999999);
     this.user = user;
     this.name = name;
     this.description = description;
+    this.type = type;
     this.createdAt = Instant.now();
   }
 

@@ -16,8 +16,8 @@ import pl.minecodes.mmetrics.user.User;
 import pl.minecodes.mmetrics.user.UserService;
 
 @RestController
-@RequestMapping("/api/v1/metric")
-public class ProductController {
+@RequestMapping("/api/v1/product")
+class ProductController {
 
   private final UserService userService;
   private final ProductFactory productFactory;
@@ -31,8 +31,8 @@ public class ProductController {
 
   @PutMapping
   public ResponseEntity<?> createMetric(@RequestBody ProductCreateRequest request) {
-    if (request.getName() == null || request.getDescription() == null) {
-      throw new ProductCreationException("Name and description cannot be null.");
+    if (request.getName() == null || request.getDescription() == null || request.getType() == null) {
+      throw new ProductCreationException("Name,description and type cannot be null.");
     }
 
     if (request.getName().length() < 3 || request.getName().length() > 64) {
