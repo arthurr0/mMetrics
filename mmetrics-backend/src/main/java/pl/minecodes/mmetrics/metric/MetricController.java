@@ -1,6 +1,8 @@
 package pl.minecodes.mmetrics.metric;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import pl.minecodes.mmetrics.metric.rest.MetricResponse;
 import pl.minecodes.mmetrics.metric.rest.MetricValuesResponse;
 import pl.minecodes.mmetrics.product.Product;
 import pl.minecodes.mmetrics.product.ProductService;
+import pl.minecodes.mmetrics.util.AddressUtil;
 
 @RestController
 @RequestMapping("/api/v1/metric")
@@ -34,10 +37,17 @@ public class MetricController {
   }
 
   @PostMapping
-  public ResponseEntity<?> pushMetric(@RequestBody MetricPushRequest request) {
+  public ResponseEntity<?> pushMetric(@RequestBody MetricPushRequest request, HttpServletRequest httpServletRequest) {
+    String requestAddress = AddressUtil.getRealRequestAddress(httpServletRequest);
+
     Optional<Product> optionalProduct = this.productService.findByApiCode(request.getApiCode());
     if (optionalProduct.isEmpty()) {
       throw new MetricNotFoundException("Product with api code " + request.getApiCode() + " not found");
+    }
+
+    Metric country = this.metricService.getMetricRequestCountry(requestAddress, optionalProduct.get());
+    if (country != null) {
+      this.metricService.save(country);
     }
 
     Metric metric = this.metricFactory.createMetric(
