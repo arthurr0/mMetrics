@@ -32,9 +32,6 @@
             <a href="#" class="mr-5 mb-5 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400 font-bold text-2xl">
               MINEHOST
             </a>
-            <a href="#" class="mr-5 mb-5 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400 font-bold text-2xl">
-              EternalCode
-            </a>
           </div>
         </div>
       </div>
